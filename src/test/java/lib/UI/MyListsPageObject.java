@@ -9,6 +9,7 @@ abstract public class MyListsPageObject extends MainPageObject{
     protected static String
             FOLDER_BY_NAME_TPL,
             ARTICLE_BY_TITLE_TPL,
+            REMOVE_FROM_SAVED_BUTTON,
             DELETE_BUTTON;
 
     private static String getFolderXpathByName(String name_of_folder)
@@ -19,6 +20,11 @@ abstract public class MyListsPageObject extends MainPageObject{
     private static String getArticleXpathByName(String article_title)
     {
         return ARTICLE_BY_TITLE_TPL.replace("{TITLE}", article_title);
+    }
+
+    private static String getRemoveButtonByTitle(String article_title)
+    {
+        return REMOVE_FROM_SAVED_BUTTON.replace("{TITLE}", article_title);
     }
 
     public MyListsPageObject(RemoteWebDriver driver)
@@ -60,12 +66,25 @@ abstract public class MyListsPageObject extends MainPageObject{
     {
         this.waitForArticleToAppearByTitle(article_title);
         String title_xpath = getArticleXpathByName(article_title);
-        this.swipeElementToLeft(
-                title_xpath,
-                "Cannot find saved article"
-        );
-        if(Platform.getInstance().isIos()){
-            waitForElementAndClick(DELETE_BUTTON, "Cannot find delete button", 5);
+
+        if (Platform.getInstance().isIos() || Platform.getInstance().isAndroid()) {
+            this.swipeElementToLeft(
+                    title_xpath,
+                    "Cannot find saved article"
+            );
+            if(Platform.getInstance().isIos()){
+                waitForElementAndClick(DELETE_BUTTON, "Cannot find delete button", 5);
+            }
+        } else {
+            String remove_locator = getRemoveButtonByTitle(article_title);
+            this.waitForElementAndClick(
+                    remove_locator,
+                    "cannot click button to remove article from saved",
+                    10
+            );
+        }
+        if (Platform.getInstance().isMw()){
+            driver.navigate().refresh();
         }
         this.waitForArticleToDisappearByTitle(article_title);
     }

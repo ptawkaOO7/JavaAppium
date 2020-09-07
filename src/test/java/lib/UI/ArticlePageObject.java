@@ -1,6 +1,5 @@
 package lib.UI;
 
-import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -105,8 +104,7 @@ abstract public class ArticlePageObject extends MainPageObject {
         if (Platform.getInstance().isMw()) {
             this.removeArticleFromSavedIfItAdded();
         }
-        this.waitForElementPresent(OPTIONS_ADD_TO_MY_LIST_BUTTON, "Cannot find saved button", 15);
-        this.waitForElementAndClick(OPTIONS_ADD_TO_MY_LIST_BUTTON, "Cannot find option to add article to reading list", 15);
+        this.waitForElementAndClick(OPTIONS_ADD_TO_MY_LIST_BUTTON, "Cannot find option to add article to reading list", 5);
         if (Platform.getInstance().isIos()) {
             this.waitForElementAndClick(MY_LIST_OK_BUTTON, "Cannot find Close button", 5);
         }

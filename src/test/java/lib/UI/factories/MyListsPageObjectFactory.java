@@ -1,12 +1,9 @@
 package lib.UI.factories;
 
-import io.appium.java_client.AppiumDriver;
 import lib.Platform;
 import lib.UI.MyListsPageObject;
 import lib.UI.android.AndroidMyListsPageObject;
-import lib.UI.ios.iOSArticlePageObject;
 import lib.UI.ios.iOSMyListsPageObject;
-import lib.UI.mobile_web.MWArticlePageObject;
 import lib.UI.mobile_web.MWMyListsPageObject;
 import org.openqa.selenium.remote.RemoteWebDriver;
 

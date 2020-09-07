@@ -1,6 +1,5 @@
 package lib.UI;
 
-import io.appium.java_client.AppiumDriver;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -8,6 +7,7 @@ abstract public class NavigationUi extends MainPageObject{
 
     protected static String
             MY_LISTS_LINK,
+            LOGIN_LINK,
             OPEN_NAVIGATION;
 
     public NavigationUi(RemoteWebDriver driver)
@@ -39,5 +39,14 @@ abstract public class NavigationUi extends MainPageObject{
             );
         }
 
+    }
+
+    public void clickLogin()
+    {
+            this.tryClickElementWithFewAttempts(
+                    LOGIN_LINK,
+                    "Cannot find navigation button to Login",
+                    5
+            );
     }
 }
